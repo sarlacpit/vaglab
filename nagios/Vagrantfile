@@ -1,0 +1,34 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.ssh.insert_key = false
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "512"]
+  end
+
+config.vm.define "nagios" do |nagios|
+    nagios.vm.hostname = "nagios"
+    nagios.vm.box = "precise64"
+    nagios.vm.network :private_network, ip: "192.168.33.130"
+end
+
+config.vm.define "radius" do |radius|
+    radius.vm.hostname = "radius"
+    radius.vm.box = "precise64"
+    radius.vm.network :private_network, ip: "192.168.33.132"
+end
+
+
+config.vm.define "client" do |client|
+    client.vm.hostname = "client"
+    client.vm.box = "ubuntu/precise64"
+    client.vm.network :private_network, ip: "192.168.33.131"
+end
+ end
+
+
+

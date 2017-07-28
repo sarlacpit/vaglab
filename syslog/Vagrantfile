@@ -1,0 +1,23 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.ssh.insert_key = false
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "512"]
+  end
+
+config.vm.define "rad01" do |rad01|
+    rad01.vm.hostname = "rad01"
+    rad01.vm.box = "ubuntu/trusty64"
+    rad01.vm.network :private_network, ip: "192.168.33.110"
+end
+
+config.vm.define "oss01" do |oss01|
+    oss01.vm.hostname = "oss01"
+    oss01.vm.box = "ubuntu/trusty64"
+    oss01.vm.network :private_network, ip: "192.168.33.111"
+end
+ end
